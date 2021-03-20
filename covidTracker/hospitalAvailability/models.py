@@ -8,22 +8,23 @@ from django.db import models
 #     userID = models.AutoField(primary_key=True)
 #     userLocation = 
 
-class States(models.Model):
+class State(models.Model):
     stateName = models.CharField(max_length=20)
 
 
 class Hospitals(models.Model):
     hospitalName = models.CharField(max_length=50)
     hospitalID = models.AutoField(primary_key=True)
-    hospitalState = models.ForeignKey(States, on_delete=models.CASCADE)
+    hospitalState = models.ForeignKey(State, on_delete=models.CASCADE)
     hospitalAddress = models.CharField(max_length=200)
     bedsOccupied = models.IntegerField()
     totalBeds = models.IntegerField()
     hospitalPassword = models.CharField(max_length=20)
+    def getHospitals(state):
+        hospitals = Hospitals.objects.all().filter(hospitalState=state)
+        return hospitals
 
-
-
-class Patients(models.Model):
+class Patient(models.Model):
     patientName = models.CharField(max_length=50)
     patientID = models.AutoField(primary_key=True)
     hospitalID = models.ForeignKey(Hospitals, on_delete=models.CASCADE)
@@ -33,7 +34,7 @@ class Patients(models.Model):
     sugar = models.IntegerField()
     heartRate = models.IntegerField()
     oxygenRate = models.IntegerField()
-    patientStability = models.BooleanField()
+    tability = models.BooleanField()
 
 
     

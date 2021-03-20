@@ -17,17 +17,19 @@ urlpatterns = [
     path('', views.apiOverview, name="api-overview"),
     # path('subject-detail/user_id=<str:user>/subject_id=<int:id>',
     #      views.subjectDetail, name="subject-detail"),
-    # path('post-list/username=<str:username>/',
-    #      views.postList, name="post-list"),
+    path('hospital-list/state=<str:state>/',
+         views.hospitalList, name="hospital-list"),
+  path('hospital-detail/hospitalID=<str:hospitalID>/',
+         views.hospitalDetail, name="hospital-detail"),
 
     # path('user-recommend/user name=<str:username>/', views.recommendUsers, name="recommendUsers"),
-    # path('user-login/username=<str:username>/password=<str:password>/',         # >/password=<str:password>'
-    #      views.userLogin, name="user-login"),
+    path('hospital-login/username=<str:hospitalID>/password=<str:password>/'     # >/password=<str:password>'
+         ,views.hospitalLogin, name="hospital-login"),
 
     # # # path('subject-detail/<str:pk>/', views.subjectDetail, name="subject-detail"),
     # path('post-insert/',
     #      views.postInsert, name="post-insert"),
-    # path('user-register/', views.userRegistration, name="user-registration"),
+    path('hospital-register/', views.hospitalRegistration, name="hospital-registration"),
     # path('user-follow/', views.userFollow, name="user-follow"),
 
     # # path('subject-update/user=<str:user>/subject_id=<int:id>',

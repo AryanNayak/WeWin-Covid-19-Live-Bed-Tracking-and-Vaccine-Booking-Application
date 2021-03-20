@@ -1,27 +1,24 @@
 from rest_framework import serializers
-# from .models import Posts, User, PostComments, Follow
+from .models import Hospitals,  Patient, State
 
-class PostSerializer(serializers.ModelSerializer):
+
+class HospitalSerializer(serializers.ModelSerializer):
     class Meta:
     
-        model = Posts
+        model = Hospitals
         fields = '__all__'
 
 
-class UserSerializer(serializers.ModelSerializer):
+class PatientSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = Patient
         fields = '__all__'
 
 
 
-class PostCommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PostComments
-        fields = '__all__'
 
 
-class FollowSerializer(serializers.ModelSerializer):
+class StateSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Follow
+        model = State
         fields = '__all__'
