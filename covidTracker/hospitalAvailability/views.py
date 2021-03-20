@@ -1,4 +1,13 @@
 from django.shortcuts import render
+from django.http import JsonResponse
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+# from .serializers import PostSerializer, UserSerializer, PostCommentSerializer, FollowSerializer
+
+# from .models import Posts, User, PostComments, Follow
+# Create your views here.
+
 
 # Create your views here.
 
@@ -7,9 +16,8 @@ def apiOverview(request):
     api_urls = {
         'HospitalList': '/hospital-list/',
         'Hospital Detail ': '/Hospital-detail/<str:pk>/',
-        'hospital': '/subject-hospital/',
+        'hospital': '/hospitalCreate/',
         'hospitalUpdate': '/hospital-update/<str:pk>/',
-        # 'Delete': '/subject-delete/<str:pk>/',
     }
 
     return Response(api_urls)
