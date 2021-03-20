@@ -25,19 +25,33 @@ class Hospitals(models.Model):
         return hospitals
 
 class Patient(models.Model):
+    
+
     patientName = models.CharField(max_length=50)
-    patientID = models.AutoField(primary_key=True)
+    patientID = models.IntegerField(primary_key=True)
     hospitalID = models.ForeignKey(Hospitals, on_delete=models.CASCADE)
-    lastChecked = models.DateTimeField()
+    lastChecked = models.DateTimeField(  auto_now_add=True)
+
     bpHigh = models.IntegerField()
     bpLow = models.IntegerField()
     sugar = models.IntegerField()
     heartRate = models.IntegerField()
     oxygenRate = models.IntegerField()
-    tability = models.BooleanField()
+    stability = models.BooleanField()
 
 
+class vaccinationAppointment(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospitals, on_delete=models.CASCADE)
+    doseNo = models.IntegerField()
+    firstAppointmentDate = models.DateField()
+    #TODO secondAppointmentDate = models.DateField(default=firstAppointmentDate+28 days)
+
+    # TODO emailID = models.EmailField()
+    # OTP
     
+
+
 
 
 

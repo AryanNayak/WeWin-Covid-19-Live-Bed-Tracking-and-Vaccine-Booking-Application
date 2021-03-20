@@ -73,14 +73,6 @@ def hospitalRegistration(request):
 # }
 
 
-# {
-# hospitalName: "BKC",
-# hospitalState:"Maharashtra",
-# hospitalAddress:"BANDRA",
-# bedsOccupied:100,
-# hospitalPassword:"password",
-# totalBeds:1000,
-# }
 
 @api_view(['GET'])
 def hospitalList(request, state):
@@ -107,19 +99,94 @@ def hospitalList(request, state):
 
 @api_view(['GET'])
 def hospitalDetail(request, hospitalID):
-    # username = User.objects.get(username=username)
-    # print(username)
-    # usernameOfFollowing = Follow.objects.get(follower=username)
-    # print(type(username))
-    # print(username.append(usernameOfFollowing))
-
-#  or username = usernameOfFollowing
     # posts = Posts.objects.all().filter(username=username)
     hospital = Hospitals.objects.filter(hospitalID=hospitalID)
-    # print("username3:",username,"Posts are:")
-    # print("HELLO",i)
     # for i in hospitals:
         # print(i.hospitalName)
     serializer = HospitalSerializer(hospital    , many=True)
-    # print(serializer.data)
     return Response(serializer.data)
+
+
+
+
+
+
+
+
+
+
+@api_view(['POST'])
+def hospitalUpdate(request, hospitalID, added):
+    # patient added/dischared
+    # if patient is added register him
+    # decrmenent total beds
+    if(int(added)==1):
+        # print(request.data)
+        serializer = PatientSerializer(data=request.data)
+        print(serializer) 
+        serializer.is_valid()
+        # new_dict={"patientID":Patient.objects.all().order_by("-patientID")[0].patientID+1}
+        # new_dict.update(serializer)
+        patientID=Patient.objects.all().order_by("-patientID")[0].patientID+1
+        print(serializer.data)
+        # serializer = new_dict
+        import datetime
+        hospital = Hospitals.objects.get(hospitalID= serializer.data['hospitalID'])
+        patient = Patient.objects.create(patientName=serializer.data['patientName'], 
+        patientID=patientID,
+        
+        hospitalID= hospital,
+        lastChecked=datetime.datetime.now(),
+         bpHigh=serializer.data['bpHigh'],
+         bpLow= serializer.data['bpLow'],
+         sugar= serializer.data['sugar'],
+         heartRate= serializer.data['heartRate'],
+         oxygenRate= serializer.data['oxygenRate'],
+         stability= serializer.data['stability'])
+        patient.save()
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         # hospitalID=serializer.data.hospitalID
+    #         # update hospital beds
+    #         Hospitals.objects.filter(hospitalID=hospitalID).update(bedsOccupied= Hospitals.objects.filter(hospitalID=hospitalID)[0].bedsOccupied+1)
+
+    #     else:
+    #         print("SERIALIZER VALID:",serializer.is_valid())
+    #         print("SERIA",serializer.errors)
+    #     # serializer.data.id
+    #     return Response(serializer.data)
+    # print("Not saved")
+    return Response(1)
+#     {
+# "patientName":"Sushant Mehta",
+# "hospitalID":1,
+# "bpHigh":100,
+# "bpLow":100,
+# "sugar":100,
+# "heartRate":100,
+# "oxygenRate":100,
+# "stability":true
+# }
+
+
+
+
+@api_view(['POST'])
+def patientHealthUpdate(request):
+    serializer = PatientSerializer(data=request.data)
+    if serializer.is_valid():
+        print(serializer.data['patientID'])
+        # TODO UPDATE THE ROW
+        patient = serializer.data['patientID']
+        
+        Patient.objects.filter(patientID=patient).delete()
+        serializer.save()
+        
+    # else:
+    #     print("SERIALIZER VALID:",serializer.is_valid())
+    #     print("SERIA",serializer.errors)
+    # # serializer.data.id
+    return Response(serializer.data)
+
+
+

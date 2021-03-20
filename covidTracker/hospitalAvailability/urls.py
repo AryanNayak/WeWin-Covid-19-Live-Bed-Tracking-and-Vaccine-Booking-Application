@@ -21,6 +21,10 @@ urlpatterns = [
          views.hospitalList, name="hospital-list"),
   path('hospital-detail/hospitalID=<str:hospitalID>/',
          views.hospitalDetail, name="hospital-detail"),
+path('hospital-update/hospitalID=<str:hospitalID>/added=<str:added>/',
+         views.hospitalUpdate, name="hospital-update"),
+path('patient-update/',
+         views.patientHealthUpdate, name="patient-update"),
 
     # path('user-recommend/user name=<str:username>/', views.recommendUsers, name="recommendUsers"),
     path('hospital-login/username=<str:hospitalID>/password=<str:password>/'     # >/password=<str:password>'
@@ -32,8 +36,8 @@ urlpatterns = [
     path('hospital-register/', views.hospitalRegistration, name="hospital-registration"),
     # path('user-follow/', views.userFollow, name="user-follow"),
 
-    # # path('subject-update/user=<str:user>/subject_id=<int:id>',
-    # #      views.subjectUpdate, name="subject-update"),
+    path('patientHealthUpdate/',
+         views.patientHealthUpdate, name="patientHealthUpdate"),
     # # path('subject-delete/subjectId=<str:subjectId>/',
     # #      views.subjectDelete, name="subject-delete"),
 ]
