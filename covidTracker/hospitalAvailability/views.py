@@ -187,6 +187,34 @@ def patientHealthUpdate(request):
     #     print("SERIA",serializer.errors)
     # # serializer.data.id
     return Response(serializer.data)
+    
+
+# @api_view(['POST'])
+# def vaccinationBook(request):
+    
+
+@api_view(['GET'])
+def updateBeds(request, hospitalID, incr):
+    # if(incr
+    # )
+    # currentBeds = Hospitals.objects.filter(hospitalID=hospitalID)[0].bedsOccupied
+    # Hospitals.objects.
+    hospital = Hospitals.objects.get(hospitalID=hospitalID)
+    hospital.bedsOccupied+=incr
+    hospital.save(update_fields=['bedsOccupied'])
+    serializer=HospitalSerializer(hospital)
+    return Response(serializer.data)
+
+    
+
+
+
+
+
+
+
+
+
 
 
 

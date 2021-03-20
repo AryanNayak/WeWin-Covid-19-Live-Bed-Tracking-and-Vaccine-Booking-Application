@@ -35,6 +35,7 @@ path('patient-update/',
     #      views.postInsert, name="post-insert"),
     path('hospital-register/', views.hospitalRegistration, name="hospital-registration"),
     # path('user-follow/', views.userFollow, name="user-follow"),
+    path('hospital-updateBeds/hospitalID=<int:hospitalID>/incr=<int:incr>/', views.updateBeds, name="hospital-updateBeds"),
 
     path('patientHealthUpdate/',
          views.patientHealthUpdate, name="patientHealthUpdate"),
