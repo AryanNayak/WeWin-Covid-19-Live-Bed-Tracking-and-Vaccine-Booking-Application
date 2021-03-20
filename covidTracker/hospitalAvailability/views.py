@@ -120,6 +120,6 @@ def hospitalDetail(request, hospitalID):
     # print("HELLO",i)
     # for i in hospitals:
         # print(i.hospitalName)
-    serializer = HospitalSerializer(hospital, many=True)
+    serializer = HospitalSerializer(hospital    , many=True)
     # print(serializer.data)
     return Response(serializer.data)
