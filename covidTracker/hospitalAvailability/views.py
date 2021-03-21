@@ -35,6 +35,8 @@ def hospitalLogin(request, hospitalID, password):
     except:
         print("EXCEPTION")
 
+    request.session['hospitalID'] = hospitalID
+    print(request.session['hospitalID'])
     if(hospital.hospitalPassword == password):
         print("Password right")
         serializer = HospitalSerializer(hospital)
@@ -45,6 +47,7 @@ def hospitalLogin(request, hospitalID, password):
     else:
         print("Password wrong")
         return Response(False)
+    
     return Response(True)
 
 @ api_view(['POST'])
@@ -55,6 +58,9 @@ def hospitalRegistration(request):
     serializer = HospitalSerializer(data=request.data)
     print(serializer)
     if serializer.is_valid():
+        request.session['hospitalID'] = serializer.data['hospitalID']
+
+        
         serializer.save()
     else:
         print("SERIALIZER VALID:",serializer.is_valid())

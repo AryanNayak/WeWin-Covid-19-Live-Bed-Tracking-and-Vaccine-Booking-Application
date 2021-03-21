@@ -10,7 +10,8 @@ from django.db import models
 
 class State(models.Model):
     stateName = models.CharField(max_length=20)
-
+    def __str__(self):
+        return self.stateName
 
 class Hospitals(models.Model):
     hospitalName = models.CharField(max_length=50)
@@ -20,10 +21,12 @@ class Hospitals(models.Model):
     bedsOccupied = models.IntegerField()
     totalBeds = models.IntegerField()
     hospitalPassword = models.CharField(max_length=20)
+    numberOfVaccines = models.IntegerField(default=0)
     def getHospitals(state):
         hospitals = Hospitals.objects.all().filter(hospitalState=state)
         return hospitals
-
+    def __str__(self):
+        return self.hospitalName
 class Patient(models.Model):
     
 
@@ -40,10 +43,15 @@ class Patient(models.Model):
     stability = models.BooleanField()
 
 
+
+    def __str__(self):
+        return self.patientName, self.hospitalID
+
+
 class vaccinationAppointment(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     hospital = models.ForeignKey(Hospitals, on_delete=models.CASCADE)
-    doseNo = models.IntegerField()
+    doseNo = models.IntegerField()  
     firstAppointmentDate = models.DateField()
     #TODO secondAppointmentDate = models.DateField(default=firstAppointmentDate+28 days)
 
